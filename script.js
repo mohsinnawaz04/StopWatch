@@ -4,18 +4,19 @@ let resetBtn = document.getElementById('reset')
 
 let stopWatch = document.getElementById('stopwatch')
 
-let running = false;
+let running = 0;
 let milliseconds = 0;
 let seconds = 0;
 let minutes = 0;
 
 
 function startStop() {
-    running = !running
-    if (running) {
+    if (running === 0) {
+        running = 1;
         startBtn.textContent = 'Stop';
         startTimer();
     } else {
+        running = 0;
         startBtn.textContent = 'Start'
         stopTimer();
     }
@@ -39,15 +40,17 @@ let startTimer = () => {
 
 function stopTimer() {
     clearInterval(timer)
+    running = running
 }
 
 function reset() {
-    clearInterval(timer)
     milliseconds = 0;
     seconds = 0;
     minutes = 0;
     updateDisplay();
     startBtn.textContent = 'Start'
+    clearInterval(timer);
+    running = 0;
 }
 
 function updateDisplay() {
